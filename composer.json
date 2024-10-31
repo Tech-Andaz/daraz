@@ -1,0 +1,16 @@
+{
+    "name": "tech-andaz/daraz",
+    "description": "Tech Andaz's library for interacting with Daraz",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Tech Andaz",
+            "email": "contact@techandaz.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TechAndaz\\": "src/"
+        }
+    }
+}
