@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 use TechAndaz\Daraz\DarazClient;
 use TechAndaz\Daraz\DarazAPI;
 
-$DarazClient = new DarazClient("502736", "GapPqYo58gd8bQlVX8OtY9gnrwvmgY5Q", "https://portal.alfatah.pk/integration/daraz", "50000600a13MQJ7jlSYRqaBdo194cb7dfwhLUfsvjadiq6ns0coHQjYE0nO42C");
+$DarazClient = new DarazClient("", "", "", "");
 $DarazAPI = new DarazAPI($DarazClient);
 
 //Generate Authorization URL
@@ -20,7 +20,7 @@ function generateSellerAuthURL($DarazAPI){
 //Exchange Auth Code for Access Token
 function exchangeCodeForToken($DarazAPI){
     try {
-        $code = "4_502736_YQ4sbwzo7bQYbQ25GNLuu0Vp56";
+        $code = "";
         $response = $DarazAPI->exchangeCodeForToken($code);
         return $response;
     } catch (TechAndaz\Daraz\DarazException $e) {
@@ -30,7 +30,7 @@ function exchangeCodeForToken($DarazAPI){
 //Refresh Access Token
 function refreshAccessToken($DarazAPI){
     try {
-        $refresh_token = "50001600313aivobCUxIr7Kow1e90c1b7yrTEezm0gjxaurddbjTAnUUmaslmz";
+        $refresh_token = "";
         $response = $DarazAPI->refreshAccessToken($refresh_token);
         return $response;
     } catch (TechAndaz\Daraz\DarazException $e) {
@@ -70,11 +70,12 @@ function makeRequest2($DarazAPI){
     }
 }
 
+
 // echo (generateSellerAuthURL($DarazAPI));
 // echo (exchangeCodeForToken($DarazAPI));
 // echo (refreshAccessToken($DarazAPI));
 // echo (makeRequest($DarazAPI));
-echo (makeRequest2($DarazAPI));
+// echo (makeRequest2($DarazAPI));
+// echo (convertOrderToShopify($DarazAPI));
 // echo json_encode(getPickupLocation($DarazAPI));
 ?>
-
