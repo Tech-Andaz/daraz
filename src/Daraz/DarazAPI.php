@@ -200,4 +200,39 @@ class DarazAPI
         $response = $this->printShippingLabel($settings);
         return $response;
     }
+    public function readyToShip($config){
+        $packages = isset($config['packages']) ? $config['packages'] : throw new DarazException('Packages are required');
+        $packages = is_array($config['packages']) ? $config['packages'] : throw new DarazException('Packages must be an array');
+        $packages = array_unique($packages);
+        $packages = array_map(function($packageId) {
+            return ["package_id" => $packageId];
+        }, $packages);
+        if(count($packages) == 0){
+            throw new DarazException('Must have atleast 1 package');
+        }
+        $settings = array(
+            "endpoint" => "/order/package/rts",
+            "method" => "POST",
+            "parameters" => array(
+                "readyToShipReq" => json_encode(array(
+                    "packages" => $packages,
+                ))
+            ),
+        );
+        $response = json_decode($this->DarazClient->makeRequest($settings),true);
+        if($response['result']['success'] != 1){
+            return array(
+                "status" => 0,
+                "error" => "There was an error processing request",
+                "response" => $response
+            );
+        } else {
+            $data = $response['result']['data'];
+            return array(
+                "status" => 1,
+                "label_url" => $data['pdf_url'],
+                "response" => $data
+            );
+        }
+    }
 }

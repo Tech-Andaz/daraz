@@ -6,7 +6,9 @@ use TechAndaz\Daraz\DarazClient;
 use TechAndaz\Daraz\DarazAPI;
 
 //Test Account
-$DarazClient = new DarazClient("502736", "GapPqYo58gd8bQlVX8OtY9gnrwvmgY5Q", "https://portal.alfatah.pk/integration/daraz", "50000600223xLOTpBFSzerjMIq0QUfZ5mxe13da99a0pqcupjWkEw6NS3Xu5Pk");
+// $DarazClient = new DarazClient("502736", "GapPqYo58gd8bQlVX8OtY9gnrwvmgY5Q", "https://portal.alfatah.pk/integration/daraz", "50000600223xLOTpBFSzerjMIq0QUfZ5mxe13da99a0pqcupjWkEw6NS3Xu5Pk");
+//Alfatah Account
+$DarazClient = new DarazClient("502736", "GapPqYo58gd8bQlVX8OtY9gnrwvmgY5Q", "https://portal.alfatah.pk/integration/daraz", "50000602033YO3q5r0ThJHLmWHyxlG0HovjMoyxtRX29o13e2b163gIFJYufRu");
 $DarazAPI = new DarazAPI($DarazClient);
 
 function generateSellerAuthURL($DarazAPI){
@@ -103,6 +105,17 @@ function packAndShipOrder($DarazAPI, $order_id, $items){
             "items" => $items,
         );
         $response = $DarazAPI->packAndShipOrder($settings);
+        return $response;
+    } catch (TechAndaz\Daraz\DarazException $e) {
+        echo "Error: " . $e->getMessage() . "\n";
+    }
+}
+function readyToShip($DarazAPI, $packages){
+    try {
+        $settings = array(
+            "packages" => $packages,
+        );
+        $response = $DarazAPI->readyToShip($settings);
         return $response;
     } catch (TechAndaz\Daraz\DarazException $e) {
         echo "Error: " . $e->getMessage() . "\n";
