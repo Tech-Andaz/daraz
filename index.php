@@ -9,7 +9,7 @@ use TechAndaz\Daraz\DarazAPI;
 $DarazClient = new DarazClient("502736", "GapPqYo58gd8bQlVX8OtY9gnrwvmgY5Q", "https://portal.alfatah.pk/integration/daraz", "50000600223xLOTpBFSzerjMIq0QUfZ5mxe13da99a0pqcupjWkEw6NS3Xu5Pk");
 $DarazAPI = new DarazAPI($DarazClient);
 
-function generateSellerAuthURL($DarazAPI){
+function generateSellerAuthURL($DarazAPI){ 
     try {
         $response = $DarazAPI->generateSellerAuthURL();
         return $response;
@@ -108,6 +108,17 @@ function packAndShipOrder($DarazAPI, $order_id, $items){
         echo "Error: " . $e->getMessage() . "\n";
     }
 }
+function readyToShip($DarazAPI, $packages){
+    try {
+        $settings = array(
+            "packages" => $packages,
+        );
+        $response = $DarazAPI->readyToShip($settings);
+        return $response;
+    } catch (TechAndaz\Daraz\DarazException $e) {
+        echo "Error: " . $e->getMessage() . "\n";
+    }
+} 
 // print_r (generateSellerAuthURL($DarazAPI));
 // print_r (exchangeCodeForToken($DarazAPI));
 // print_r (refreshAccessToken($DarazAPI));
